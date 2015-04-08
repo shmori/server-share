@@ -25,7 +25,7 @@
  リソースを統合した分、処理能力の高いサーバとして利用することが出来ます。
 
 #####仮想化の概念図
-<img src="./vm-concept.png" width="100%">
+<img src="./img/vm-concept.png" width="100%">
 
 #####IaaS系のクラウドサービスでは
 リソースプールといった資源の統合や資源の分割、ネットワークの仮想化によって柔軟にサーバを切り売りしています。
@@ -66,7 +66,7 @@ AWS,GCE,IDC,さくらVPSなどにも仮想サーバ上でコンテナを利用�
 Docker, LXC, Rocket
 ```
 #####仮想化の比較図
-<img src="./vm-type.png" width="100%">
+<img src="./img/vm-type.png" width="100%">
 
 
 ##仮想化のメリット・デメリット

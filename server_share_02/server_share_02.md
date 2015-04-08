@@ -14,7 +14,7 @@
 他の仮想化技術に比べると性能面では劣りますが、
 サーバや私用PCなどの中で手軽にVMを作成することが出来ます。
 
-<img src="./host_type.png" height="300px">
+<img src="./img/host_type.png" height="300px">
 
 ##Virtual Boxの説明
 innotekによって開発されたホスト型仮想化ソフトです。  
@@ -26,21 +26,37 @@ innotekは2008年にサン・マイクロシステムズに買収されたため
 ###VirtualBoxのダウンロード  
 下記サイトよりダウンロード。  
 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">https://www.virtualbox.org/wiki/Downloads</a>  
-<img src="./download_virtualbox.png" width="80%">
+<img src="./img/download_virtualbox.jpg" width="80%">
 
 ###CentOSのダウンロード  
 下記サイトよりダウンロード。  
 <a href="https://www.centos.org/download/" target="_blank">https://www.centos.org/download/</a>  
-<img src="./download_centos.png" width="80%">
+<img src="./img/download_centos.jpg" width="80%">
 
 ###インストール
+#### Macの場合
 2015/04現在では全てデフォルトのままインストールで大丈夫です。  
-<img src="./v_install01.png" width="60%">
-<img src="./v_install02.png" width="60%">
-<img src="./v_install03.png" width="60%">
-<img src="./v_install04.png" width="60%">
-<img src="./v_install05.png" width="60%">
-<img src="./v_install06.png" width="60%">
+
+1<img src="./img/v_install01.jpg" width="30%">
+2<img src="./img/v_install02.jpg" width="30%">
+3<img src="./img/v_install03.jpg" width="30%">  
+4<img src="./img/v_install04.jpg" width="30%">
+5<img src="./img/v_install05.jpg" width="30%">
+6<img src="./img/v_install06.jpg" width="30%">
+
+#### Windowsの場合
+こちらも2015/04現在では全てデフォルトのままインストールで大丈夫です。  
+画像6で「"Oracle Corporation" からのソフトウェア を常に信頼する」にチェックを入れると  
+少しインストールが楽になります。  
+
+1<img src="./img/va_install01.jpg" width="30%">
+2<img src="./img/va_install02.jpg" width="30%">
+3<img src="./img/va_install03.jpg" width="30%">  
+4<img src="./img/va_install04.jpg" width="30%">
+5<img src="./img/va_install05.jpg" width="30%">
+6<img src="./img/va_install06.jpg" width="30%">  
+7<img src="./img/va_install07.jpg" width="30%">
+
 ###設定  
 
 
