@@ -7,6 +7,8 @@
 * 既存のboxに手を加えてboxを再生成
 * Vagrantfileでのプロビジョニング
 * webサーバとdbサーバを同時に作成、起動する
+* プラグインでより便利に
+* トラブルシューティング
 * 今回使ったコマンドまとめ
 
 
@@ -14,6 +16,14 @@
 ### 第1回：仮想環境の全体像について
 * サーバ仮想化とはソフトウェアによって仮想的にコンピュータを構築する技術。  
 * サーバ仮想化には3つの種類がある。ホスト型、ハイパーバイザー型、コンテナ型。
+```
+※広義ではホスト型もハイパーバイザー型も両方ハイパーバイザーと呼ばれるます。
+下記のような表記も正しいので混乱しないよう注意してください。
+・ホスト型ハイパーバイザー（ホスト型のこと）
+・ベアメタル型ハイパーバイザー（ハイパーバイザー型のこと）
+
+ここでは狭義の呼び方で進めます。
+```
 
 ### 第2回：ホスト型仮想化
 * ホスト型の仮想化とはホストOS上で動作する仮想化環境。
@@ -29,7 +39,7 @@ Vagrantの概要と使いかたを説明。
 
 ### 概要
 > 仮想環境の雛形を作成し、どこでも簡単に同じ環境を再現できるようにするソフトウェア。  
-> <a href="http://e-words.jp/w/Vagrant.html" target="_blank">http://e-words.jp/w/Vagrant.html</a>
+> <a href="http://e-words.jp/w/Vagrant.html" target="_blank">Vagrantとは - 意味/解説/説明/定義 ： IT用語辞典</a>
 
 `Vagrantではこの雛形のことをboxといいます。`
 
@@ -69,10 +79,10 @@ VirtualBox がすでに導入されている前提で進めます。
 
 ### 必要なものを取得
 下記サイトよりVagrantをダウンロード  
-<a href="https://www.vagrantup.com/downloads.html" target="_blank">https://www.vagrantup.com/downloads.html</a>  
+<a href="https://www.vagrantup.com/downloads.html" target="_blank">Download Vagrant - Vagrant</a>  
 
 Windowsの場合は下記サイトから Git for Windows をダウンロード  
-<a href="https://msysgit.github.io/" target="_blank">https://msysgit.github.io/</a>  
+<a href="https://msysgit.github.io/" target="_blank">Git for Windows</a>  
 
 ### インストール
 #### Macの場合
@@ -136,9 +146,10 @@ $ mkdir -p ~/vagrant/centos6/ && cd ~/vagrant/centos6/
 ```
 
 ##### 使用するboxを選定
-Vagrantを開発した企業（HashiCorp）がboxの公開リポジトリを提供しています。
-公開リポジトリにアクセスして使いたいboxを探します。   
-<a href="https://atlas.hashicorp.com/boxes/search" target="_blank">https://atlas.hashicorp.com/boxes/search</a>   
+Vagrantを開発した企業（HashiCorp）がboxの公開リポジトリを提供しています。  
+下記サイトにアクセスして使いたいboxを探します。  
+<a href="https://atlas.hashicorp.com/boxes/search" target="_blank">Discover Vagrant Boxes | Atlas by HashiCorp</a>  
+
 今回はChef社が作成したCentOSのboxを利用します。<sup>※2</sup>（"chef/centos-6.5"というbox名を後ほど使います。）
 <img src="./img/box_search.jpg" width="80%">  
 ```
@@ -251,7 +262,7 @@ $ vagrant destroy
 ## Vagrantfileについて
 ### Vagrantfileとは？
 > Vagrantfileの主要機能は、プロジェクトに必要なマシンタイプ、 そして、これらのマシンをどのように設定/プロビジョンするかを記述することです。  
-<a href="http://lab.raqda.com/vagrant/vagrantfile/index.html" target="_blank">http://lab.raqda.com/vagrant/vagrantfile/index.html</a>   
+<a href="http://lab.raqda.com/vagrant/vagrantfile/index.html" target="_blank">Vagrantfile | Vagrant日本語ドキュメント</a>   
 
 <p style="color:red">ここに図を挿入</p>
 
@@ -333,7 +344,7 @@ Starting httpd:                                            [  OK  ]
 ```
 
 4.　webブラウザでアクセスして画面が表示されることを確認  
-<a href="http://192.168.33.10" target="_blank">http://192.168.33.10</a>  
+<a href="http://192.168.33.10" target="_blank">192.168.33.10</a>  
 
 5.　仮想サーバを停止
 ```bash
@@ -377,7 +388,7 @@ $ vagrant up
 ```
 
 接続できるか確認  
-<a href="http://192.168.33.10" target="_blank">http://192.168.33.11</a> 
+<a href="http://192.168.33.10" target="_blank">192.168.33.11</a> 
 
 これでいくつでもWebサーバを複製できるようになりました。  
 
@@ -401,7 +412,7 @@ Vagrantではサーバの構築にプロビジョニングツールを利用す�
 要はサーバ構築の自動化ができます。
 
 Vagrantがサポートしているプロビジョニングツールは下記です。（参考：
-<a href="http://docs.vagrantup.com/v2/provisioning/index.html" target="_blank">公式ドキュメント - Provisioning</a> ）
+<a href="http://docs.vagrantup.com/v2/provisioning/index.html" target="_blank">Provisioning - Vagrant Documentation</a> ）
 
 |  一覧表   |      -       |      -       |     -      |
 | --------- | ------------ | ------------ | ---------- |
@@ -411,16 +422,16 @@ Vagrantがサポートしているプロビジョニングツールは下記で�
 
 この他にもプラグインの導入でFabricといったプロビジョニングツールも利用できます。
 
-今回はShellとAnsibleを例に、一つ前の項目で行ったHTMLサーバの構築を自動化してみます。
+今回はShellを例に、一つ前の項目で行ったHTMLサーバの構築を自動化してみます。
 
 ### Shellでのプロビジョニング
 シェルスクリプトを元にプロビジョニングを行います。  
 シェルコマンドを元に環境構築ができるので、最も敷居の低いプロビジョニングと言えます。
 
 1.　Vagrantにスクリプトを直接記述してみます。  
-　　下記で囲まれば部分にシェルスクリプトを記述すると、初回のvagrant up時に実行してくれます。  
+　　下記で囲まれた部分にシェルスクリプトを記述すると、初回のvagrant up時に実行してくれます。  
 　　※ 再度実行する場合は起動中の仮想マシンに`vagrant provision`を実行します。
-```
+```ruby
 config.vm.provision "shell", inline: <<-SHELL
 # ここに記述
 SHELL
@@ -481,14 +492,27 @@ GPG認証の公開鍵をインポートして良いか？という警告のた�
 
 4.　仮想マシンにアクセスしてみます。
 
-<a href="http://192.168.33.12" target="_blank">http://192.168.33.12</a> 
+<a href="http://192.168.33.12" target="_blank">192.168.33.12</a> 
 
 
 これで、このVagrantfileを共有すれば、だれでも同じ環境を整えられるようになりました。
 
 ## webサーバとdbサーバを同時に作成、起動する
-下記をVagrantfileに追加して、Vagrant up するとサーバーが同時に2台起動します。
+`config.vm.define`で各サーバの設定を記述していきます。
+下記のように定義をします。
+```ruby
+# サーバの設定名をhogehogeとしたとき。
+config.vm.define :hogehoge do |hogehoge|
+  #ここに設定を記述
+  hogehoge.vm.hostname="hogehoge"
+  hogehoge.vm.network :private_network, ip:"xxx.xxx.xxx.xxx"
+end 
 ```
+
+下記をVagrantfileに追加して、Vagrant up するとサーバーが同時に2台起動します。
+```ruby
+# ここではwebとdbとしていますがこの名前にこだわる必要はありません。
+# また、起動VM数に制限があるわけではありません。（自分のPCと相談してください。）
 config.vm.define :web do |web|
   web.vm.hostname="web"
   web.vm.network :private_network, ip:"192.168.33.11"
@@ -498,6 +522,9 @@ config.vm.define :db do |db|
   db.vm.network :private_network, ip:"192.168.33.12"
 end 
 ```
+## プラグインでより便利に
+
+## トラブルシューティング
 
 ## 今回使ったコマンドまとめ
 |           コマンド           |           意味          |               例                |
@@ -511,12 +538,10 @@ end
 | vagrant destroy              | 仮想マシンを削除        |                                 |
 | vagrant reload               | 仮想マシンを再起動      |                                 |
 
-
 ## Atlasについて
 別の機会に使ってみてレポートします。  
 本番環境への自動デプロイや、確認用の一時的な公開サーバを立てたりといろいろ便利機能があるようです。  
 
-
 ## ドキュメント
-本家：<a href="https://docs.vagrantup.com/v2/" target="_blank">https://docs.vagrantup.com/v2/</a>   
-翻訳：<a href="http://lab.raqda.com/vagrant/" target="_blank">http://lab.raqda.com/vagrant/</a>
+<a href="https://docs.vagrantup.com/v2/" target="_blank">公式ドキュメント</a>   
+<a href="http://lab.raqda.com/vagrant/" target="_blank">日本語ドキュメント（有志サイト）</a>
